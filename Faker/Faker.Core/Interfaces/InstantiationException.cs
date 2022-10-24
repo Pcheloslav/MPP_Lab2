@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Faker.Core.Interfaces
 {
-    internal interface Interface1
+    public class InstantiationException : Exception
     {
+        public InstantiationException(string message) : base(message)
+        {
+        }
     }
 }
