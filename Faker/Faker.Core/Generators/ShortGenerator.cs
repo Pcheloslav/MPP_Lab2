@@ -7,7 +7,7 @@ namespace Faker.Core.Generators
     {
         public bool CanGenerate(Type type)
         {
-            return type == typeof(short);
+            return type == typeof(short) || type == typeof(Int16);
         }
 
         public object Generate(Type type, GeneratorContext context)

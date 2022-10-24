@@ -24,6 +24,7 @@ namespace Faker.Core.Services
                 new CharGenerator(),
                 new StringGenerator(),
                 new ListGenerator(),
+                new DictionaryGenerator(),
             };
         }
 

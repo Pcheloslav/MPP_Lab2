@@ -10,5 +10,6 @@ namespace Faker.Core.Context
     {
         public int MaxStringLength = 50;
         public int MaxListLength = 20;
+        public int MaxDictLength = 5;
     }
 }
