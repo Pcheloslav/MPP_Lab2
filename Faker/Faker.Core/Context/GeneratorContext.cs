@@ -6,11 +6,13 @@ namespace Faker.Core.Context
     {
         public Random Random { get; }
         public IFaker Faker { get; }
+        public GeneratorConfig Config { get; }
 
-        public GeneratorContext(Random random, IFaker faker)
+        public GeneratorContext(Random random, IFaker faker, GeneratorConfig config)
         {
             Random = random;
             Faker = faker;
+            Config = config;    
         }
     }
 }

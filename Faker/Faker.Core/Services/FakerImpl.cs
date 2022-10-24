@@ -6,12 +6,12 @@ namespace Faker.Core.Services
 {
     public class FakerImpl : IFaker
     {
-        private GeneratorContext _context;
-        private List<IValueGenerator> _generators;
+        private readonly GeneratorContext _context;
+        private readonly List<IValueGenerator> _generators;
 
         public FakerImpl()
         {
-            _context = new GeneratorContext(new Random(), this);
+            _context = new GeneratorContext(new Random(), this, new GeneratorConfig());
             _generators = new List<IValueGenerator> {
                 new ByteGenerator(),
                 new SByteGenerator(),
@@ -21,6 +21,9 @@ namespace Faker.Core.Services
                 new ShortGenerator(),
                 new DoubleGenerator(),
                 new FloatGenerator(),
+                new CharGenerator(),
+                new StringGenerator(),
+                new ListGenerator(),
             };
         }
 
