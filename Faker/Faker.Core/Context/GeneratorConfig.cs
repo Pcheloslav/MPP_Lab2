@@ -8,8 +8,21 @@ namespace Faker.Core.Context
 {
     public class GeneratorConfig
     {
-        public int MaxStringLength = 50;
-        public int MaxListLength = 20;
-        public int MaxDictLength = 5;
+        public readonly int MaxStringLength;
+        public readonly int MaxListLength;
+        public readonly int MaxDictLength;
+        public readonly int NestingLevel;
+
+        public GeneratorConfig() : this(50, 20, 5, 3)
+        {
+        }
+
+        public GeneratorConfig(int maxStringLength, int maxListLength, int maxDictLength, int nestingLevel)
+        {
+            MaxStringLength = maxStringLength;
+            MaxListLength = maxListLength;
+            MaxDictLength = maxDictLength;
+            NestingLevel = nestingLevel;
+        }
     }
 }

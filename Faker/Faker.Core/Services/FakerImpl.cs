@@ -8,6 +8,8 @@ namespace Faker.Core.Services
     {
         private readonly GeneratorContext _context;
         private readonly List<IValueGenerator> _generators;
+        private Dictionary<Type, int> _types = new();
+        
 
         public FakerImpl()
         {
@@ -25,6 +27,8 @@ namespace Faker.Core.Services
                 new StringGenerator(),
                 new ListGenerator(),
                 new DictionaryGenerator(),
+                new DateTimeGenerator(),
+                new UserTypeGenerator(),
             };
         }
 
@@ -41,12 +45,42 @@ namespace Faker.Core.Services
 
         private object CreateObject(Type type)
         {
-            var generator = _generators.FirstOrDefault(g => g.CanGenerate(type), null);
-            if (generator == null)
+            try
             {
-                throw new InstantiationException($"Missing generator for type={type.FullName}");
+                if (!AddNewType(type))
+                {
+                    return null;
+                }
+                var generator = _generators.FirstOrDefault(g => g.CanGenerate(type), null);
+                if (generator == null)
+                {
+                    throw new InstantiationException($"Missing generator for type={type.FullName}");
+                }
+
+                return generator.Generate(type, _context);
             }
-            return generator.Generate(type, _context);
+            finally
+            {
+                RemoveType(type);
+            }
+        }
+        private bool AddNewType(Type type)
+        {
+            if (_types.ContainsKey(type))
+            {
+                _types[type]++;
+            }
+            else
+            {
+                _types.Add(type, 1);
+            }
+
+            return _types[type] <= _context.Config.NestingLevel;
+        }
+
+        private void RemoveType(Type type)
+        {
+            _types[type]--;
         }
     }
 }
